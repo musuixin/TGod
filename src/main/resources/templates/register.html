@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <title>注册</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900'>
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Montserrat:400,700'>
+    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css'>
+
+    <link rel="stylesheet" href="css/style.css">
+
+
+</head>
+
+<body>
+
+
+<div class="container">
+    <div class="info">
+        <h1>在线管理系统</h1><span>用户<i class="fa fa-heart"></i>注册</span>
+    </div>
+</div>
+<div class="form" id="app">
+    <div class="thumbnail"><img src="css/hat.svg"/></div>
+    <form class="login-form" @submit.pervent="register()" onsubmit="return false">
+        <input type="text" placeholder="用户姓名" name="uname" required v-model="data.user_name"/>
+        <input type="password" placeholder="账号" name="account" required v-model="data.account"/>
+        <input type="password" placeholder="密码" name="password" required v-model="data.password"/>
+        <input type="password" placeholder="确认密码" name="repassword" required v-model="data.repassword"/>
+        <input type="password" placeholder="手机号" name="phone" required v-model="data.user_phone"/>
+        <button type="submit" id="register">注册</button>
+        <p class="message">已有账号？<a href="login">登陆</a></p>
+    </form>
+</div>
+<script src='js/jquery.min.js'></script>
+<script src="js/index.js"></script>
+<script src="https://cdn.bootcss.com/axios/0.19.0-beta.1/axios.js"></script>
+<script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+<script>
+    new Vue({
+        el: "#app",
+        methods: {
+            register: function () {
+                if (this.data.password != this.data.repassword) {
+                    alert("两次输入的密码不一致");
+                    return;
+                }
+                axios.post("api/register",
+                    this.data
+                ).then(function (response) {
+                    if (response["data"]["status"]=="200"){
+                        alert("注册成功请登陆");
+                        window.location.href="login";
+                        return;
+                    }
+                    alert(response["data"]["msg"]);
+
+                })
+            }
+        },
+        data() {
+            return {
+                data: {}
+            }
+        },
+
+
+    });
+    // $("#Login").submit(function () {
+    //     $("#blogin").text("登陆中...");
+    //     $.ajax({
+    //         type: "post",
+    //         url: "/onlineStudent/api/Login",
+    //         data: $("#Login").serialize(),
+    //         success: function (data) {
+    //             if (data["status"] == "400") {
+    //                 alert(data["msg"]);
+    //                 $("#blogin").text("登陆");
+    //             }
+    //             if (data["status"] == "200") {
+    //                 window.location.href = "index"
+    //             }
+    //         },
+    //         error: function () {
+    //             alert("出现不可预知的错误")
+    //             $("#blogin").text("登陆");
+    //
+    //         }
+    //     });
+    // })
+
+
+</script>
+
+
+</body>
+
+</html>

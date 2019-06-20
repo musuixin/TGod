@@ -1,0 +1,31 @@
+server:
+  port: 8080
+  servlet:
+    context-path: "/TGod"
+
+  tomcat:
+    max-http-post-size: 100MB
+spring:s
+  datasource:
+    username: root
+    password: 950405
+    url: jdbc:mysql://localhost:3306/tgod?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+  http:
+    encoding:
+      force-response: true
+  servlet:
+    multipart:
+      max-file-size: 1000MB
+      max-request-size: 1000MB
+  cache:
+    type: REDIS
+    cache-names: redis_cache , ehcache #缓存的名字
+    redis:
+      time-to-live: 9999999  #很重要，缓存的有效时间，以便缓存的过期（单位为毫秒）
+logging:
+  path: /web/logs
+  level:
+    top.musuixin.Mapper: debug
+

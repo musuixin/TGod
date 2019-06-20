@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>天狗商品管理页</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="robots" content="all,follow">
+    <!-- Bootstrap CSS-->
+    <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
+    <!-- Font Awesome CSS-->
+    <link rel="stylesheet" href="vendor/font-awesome/css/font-awesome.min.css">
+    <!-- Fontastic Custom icon font-->
+    <link rel="stylesheet" href="css/fontastic.css">
+    <!-- Google fonts - Poppins -->
+    <!--<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,700">-->
+    <!-- theme stylesheet-->
+    <link rel="stylesheet" href="css/style.default.css" id="theme-stylesheet">
+    <!-- Custom stylesheet - for your changes-->
+    <link rel="stylesheet" href="css/custom.css">
+    <!-- Favicon-->
+    <link rel="shortcut icon" href="img/favicon.ico">
+    <link href="https://cdn.bootcss.com/element-ui/2.8.2/theme-chalk/index.css" rel="stylesheet">
+
+</head>
+
+<body>
+<div class="page">
+    <!-- Main Navbar-->
+    <header class="header">
+        <nav class="navbar">
+
+            <div class="container-fluid">
+                <div class="navbar-holder d-flex align-items-center justify-content-between">
+                    <!-- Navbar Header-->
+                    <div class="navbar-header">
+                        <!-- Navbar Brand --><a href="index" class="navbar-brand d-none d-sm-inline-block">
+                        <div class="brand-text d-none d-lg-inline-block"><span>欢迎 </span><strong>管理员</strong></div>
+                    </a>
+                        <!-- Toggle Button--><a id="toggle-btn" href="#"
+                                                class="menu-btn active"><span></span><span></span><span></span></a>
+                    </div>
+                    <!-- Navbar Menu -->
+                    <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
+                        <li class="nav-item"><a href="login" class="nav-link logout"> <span
+                                class="d-none d-sm-inline">退出</span><i class="fa fa-sign-out"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="page-content d-flex align-items-stretch">
+        <!-- Side Navbar -->
+        <nav class="side-navbar">
+            <ul class="list-unstyled">
+                <li class="active"><a href="#exampledropdownDropdown" aria-expanded="false" data-toggle="collapse"> <i
+                        class="icon-interface-windows"></i>管理</a>
+                    <ul id="exampledropdownDropdown" class="collapse list-unstyled ">
+                        <li class="active"><a href="project">商品管理</a></li>
+                        <li><a href="upfile">图片上传</a></li>
+
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+        <div class="content-inner">
+            <!-- Page Header-->
+            <header class="page-header">
+                <div class="container-fluid">
+                    <h2 class="no-margin-bottom">商品表</h2>
+                </div>
+            </header>
+            <section class="tables">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card">
+                                <div class="mx-5 my-2">
+                                    <button type="button" class="btn btn-success hidden-sm-down pull-right"
+                                            data-toggle="modal"
+                                            data-target="#myModal">
+                                        添加信息
+                                    </button>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <div id="app" class="col-12">
+                                            <v-table is-horizontal-resize style="width:100%" :columns="columns"
+                                                     :table-data="tableData"
+                                                     :cell-edit-done="cellEditDone" row-hover-color="#eee"
+                                                     row-click-color="#edf7ff"
+                                                     @on-custom-comp="customCompFunc"></v-table>
+                                            <div class="m-4">
+                                                <v-pagination :total="total"
+                                                              :layout="['total', 'prev', 'pager', 'next']"
+                                                              @page-change="pageChange1">
+                                                </v-pagination>
+                                            </div>
+                                        </div>
+                                        <div class="mx-3">
+                                            <ul class="pagination" id="pagination1"></ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- Page Footer-->
+            <footer class="main-footer">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <p>天狗商品管理 &copy; 2019 慕随心</p>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+
+            <div class="modal-header">
+                <h4 class="modal-title">添加商品信息</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <div class="modal-body">
+                <form id="addForm" onsubmit="return false">
+                    <div class="form-group">
+                        <label for="">商品名字</label>
+                        <input type="text" name="project_name" id="" class="form-control" placeholder=""
+                               aria-describedby="helpId"
+                               required onkeyup="this.value=this.value.replace(/\s+/g,'')">
+                    </div>
+                    <div class="form-group">
+                        <label for="">商品类型</label>
+                        <input type="text" name="project_type" id="" class="form-control" placeholder=""
+                               aria-describedby="helpId"
+                               required onkeyup="this.value=this.value.replace(/\s+/g,'')">
+                    </div>
+                    <div class="form-group">
+                        <label for="">商品描述</label>
+                        <input type="text" name="project_desc" id="" class="form-control" placeholder=""
+                               aria-describedby="helpId"
+                               required onkeyup="this.value=this.value.replace(/\s+/g,'')">
+                    </div>
+                    <div class="form-group">
+                        <label for="sel1">商品状态</label>
+                        <select class="form-control" id="sel1" name="project_status">
+                            <option>未申请</option>
+                            <option>已备案</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="">商品封面</label>
+                        <input type="file" id="input-id" name="project_img" required>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">添加</button>
+                </form>
+            </div>
+
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- JavaScript files-->
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/popper.js/umd/popper.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="vendor/jquery.cookie/jquery.cookie.js"></script>
+<script src="vendor/chart.js/Chart.min.js"></script>
+<script src="vendor/jquery-validation/jquery.validate.min.js"></script>
+<!-- Main File-->
+<script src="js/front.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.bootcss.com/axios/0.19.0-beta.1/axios.js"></script>
+<link rel="stylesheet" href="css/easytable.css">
+<script src="js/easytable.js"></script>
+<link href="https://cdn.bootcss.com/bootstrap-fileinput/5.0.1/css/fileinput.min.css" rel="stylesheet">
+<script src="https://cdn.bootcss.com/bootstrap-fileinput/5.0.1/js/fileinput.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap-fileinput/4.4.8/js/locales/zh.js"></script>
+<script src="https://cdn.bootcss.com/bootbox.js/4.4.0/bootbox.min.js"></script>
+<script src="https://cdn.bootcss.com/element-ui/2.8.2/index.js"></script>
+</body>
+<script>
+    new Vue({
+        el: '#app',
+        methods: {
+            // 单元格编辑回调
+            cellEditDone(newValue, oldValue, rowIndex, rowData, field) {
+                rowData[field] = newValue;
+
+                if (rowData["project_status"] != "已备案" && rowData["project_status"] !="未申请") {
+                    bootbox.alert("请输入已备案或者未申请");
+                    rowData[field] = oldValue;
+                    return;
+                }
+                axios.put("api/project", {
+                    project_id: rowData["project_id"],
+                    project_name: rowData["project_name"],
+                    project_type: rowData["project_type"],
+                    project_desc: rowData["project_desc"],
+                    project_status: rowData["project_status"]
+                }).then(function (response) {
+                    if (response["data"]["status"] == 200) {
+                        this.tableData[rowIndex][field] = newValue;
+
+                    } else {
+                        alert(response["data"]["msg"])
+                    }
+                })
+
+                // 接下来处理你的业务逻辑，数据持久化等...
+            },
+            pageChange1(pageIndex) {
+                axios.get(' api/project', {
+                    params: {
+                        num: pageIndex
+                    }
+                })
+                    .then(response => (this.tableData = response["data"]["data"]["list"], this.total = response["data"]["data"]["total"]))
+            },
+
+            pageSizeChange1(pageSize) {
+                console.log(this.tableData)
+            },
+            customCompFunc(params) {
+                if (confirm("确定删除" + params.rowData["project_name"] + "?" + "将会删除此商品所有信息")) {
+                    var _this = this;
+                    axios.delete("api/project", {
+                        params: {
+                            id: params.rowData["project_id"]
+                        }
+                    }).then(function (response) {
+                        if (response["data"]["status"] == "200") {
+                            _this.$delete(_this.tableData, params.index);
+                        }
+                        if (response["data"]["status"] == "400") {
+                            alert(response["data"]["msg"]);
+                            _this.$delete(_this.tableData, params.index);
+                        }
+                    });
+                }
+            }
+        },
+        created() {
+            axios.get('api/project', {
+                params: {
+                    num: 1
+                }
+            })
+                .then(response => (this.tableData = response["data"]["data"]["list"], this.total = response["data"]["data"]["total"]))
+            $("#input-id").fileinput({
+                dropZoneEnabled: false,
+                showUpload: false,
+                'previewFileType': 'any',
+                language: 'zh',
+                allowedFileExtensions: ['jpg', 'png', 'bmp', 'jpeg']
+            });
+        },
+        data: function () {
+            return {
+                total: 0,
+                tableData: null,
+                columns: [
+                    {field: 'project_id', title: 'ID', width: 100, titleAlign: 'center', columnAlign: 'center'},
+                    {
+                        field: 'project_name',
+                        title: '名字',
+                        width: 200,
+                        titleAlign: 'center',
+                        columnAlign: 'center',
+                        isEdit: true
+                    },
+                    {
+                        field: 'project_type',
+                        title: '类型',
+                        width: 200,
+                        titleAlign: 'center',
+                        columnAlign: 'center',
+                        isEdit: true
+                    },
+                    {
+                        field: 'project_desc',
+                        title: '描述',
+                        width: 300,
+                        titleAlign: 'center',
+                        columnAlign: 'center',
+                        isEdit: true
+                    },
+                    {
+                        field: 'project_status',
+                        title: '状态',
+                        width: 200,
+                        titleAlign: 'center',
+                        columnAlign: 'center',
+                        isEdit: true
+                    },
+                    {
+                        field: 'custome-adv',
+                        title: '操作',
+                        width: 100,
+                        titleAlign: 'center',
+                        columnAlign: 'center',
+                        componentName: 'table-operation',
+                        isResize: true
+                    }
+                ]
+            }
+        }
+    });
+    Vue.component('table-operation', {
+        template: `<span>
+        <a class="btn btn-primary" href="" @click.stop.prevent="display(rowData,index)">查看图片</a>&nbsp;
+        <a class="btn btn-danger" href="" @click.stop.prevent="deleteRow(rowData,id)">删除</a>
+         </span>`,
+        props: {
+            rowData: {
+                type: Object
+            },
+            index: {
+                type: Number
+            }
+        },
+        methods: {
+            deleteRow() {
+                // 参数根据业务场景随意构造
+                let params = {type: 'delete', index: this.index, rowData: this.rowData};
+                this.$emit('on-custom-comp', params);
+            },
+            display() {
+                // 参数根据业务场景随意构造
+                axios.get("api/getProjectImg", {
+                    params: {
+                        project_id: this.rowData["project_id"]
+                    }
+                }).then(function (response) {
+                    window.open(response["data"]["data"]);
+                })
+            }
+        }
+    });
+    $(function () {
+        $("#addForm").submit(function () {
+            var formData = new FormData();
+            formData.append("project_name", $("input[name='project_name']").val())
+            formData.append("project_desc", $("input[name='project_desc']").val())
+            formData.append("project_type", $("input[name='project_type']").val())
+            formData.append("project_status", $("select[name='project_status']").val())
+            formData.append("img", $("input[name='project_img']")[0].files[0])
+            $.ajax({
+                url: 'api/project',
+                type: 'POST',
+                processData: false,//tell jQuery not to process the data
+                contentType: false,//tell jQuery not to set contentType
+                data: formData,
+                success: function () {
+                    alert("添加成功！");
+                    location.reload();
+                }
+            })
+        });
+    });
+</script>
+
+</html>

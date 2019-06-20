@@ -21,11 +21,11 @@
 
 <div class="container">
     <div class="info">
-        <h1>在线管理系统</h1><span>用户<i class="fa fa-heart"></i>注册</span>
+        <h1>天狗商城管理系统</h1><span>管理员<i class="fa fa-heart"></i>注册</span>
     </div>
 </div>
 <div class="form" id="app">
-    <div class="thumbnail"><img src="css/hat.svg"/></div>
+    <div class="thumbnail"><img src="css/logo.PNG"/></div>
     <form class="login-form" @submit.pervent="register()" onsubmit="return false">
         <input type="text" placeholder="用户姓名" name="uname" required v-model="data.user_name"/>
         <input type="password" placeholder="账号" name="account" required v-model="data.account"/>
@@ -58,7 +58,6 @@
                         return;
                     }
                     alert(response["data"]["msg"]);
-
                 })
             }
         },

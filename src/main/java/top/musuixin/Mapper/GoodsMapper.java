@@ -35,7 +35,7 @@ public interface GoodsMapper {
     /*
 以下用于app数据反馈
  */
-    @Select("select * from goods")
+    @Select("select * from goods order by id desc ")
     List<GoodsPojo> getListApp();
 
     @Select("select * from goods where id=#{id} ")

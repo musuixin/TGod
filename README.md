@@ -9,3 +9,5 @@
 ## 在线演示地址
 
 [http://www.musuixin.top:8080/TGod](http://www.musuixin.top:8080/TGod)
+## 截图
+![enter image description here](http://www.musuixin.top:8080/files/GitHub/TGodWeb.PNG)![enter image description here](http://www.musuixin.top:8080/files/GitHub/TGodApp.PNG)
